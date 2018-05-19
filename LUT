@@ -1,0 +1,20 @@
+clear all
+Y=dicomread('MRsample.dcm');
+window_width=input(' window width equals to ');
+window_center=input(' window center equals to ');
+window_min=window_center-window_width/2;
+window_max=window_center+window_width/2;
+LUT=int16(zeros(1,65536));
+for i=1:32769+window_min
+    LUT(i)=window_min;
+end
+for i=32769+window_max:65535
+    LUT(i)=window_max;
+end
+for i=(32769+window_min+1):(32769+window_max-1)
+    LUT(i)=i-32769;
+end
+
+new_Y=intlut(Y,LUT);
+figure(3)
+imshow(new_Y,[]);
