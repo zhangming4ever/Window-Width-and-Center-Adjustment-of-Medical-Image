@@ -1,0 +1,19 @@
+clear all
+%way2:changing data in the matrix of Y
+Y=dicomread('MRsample.dcm');
+window_width=input('window width equals to');
+window_center=input('window center equals to');
+window_min=window_center-window_width/2;
+window_max=window_center+window_width/2;
+for i=1:512
+for j=1:512
+ifY(i,j)<window_min
+            Y(i,j)=window_min;
+end
+if Y(i,j)>window_max
+            Y(i,j)=window_max;
+end
+end
+end
+figure(2)
+imshow(Y,[]);
